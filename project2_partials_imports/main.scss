@@ -1,0 +1,135 @@
+// partial names tart with _partials.scss
+// those are imported by @import command
+// @import "_variables.scss";
+// in scss import can be shortened for partials to its name imittin _ and .scss
+@import "variables";
+
+// we can also use normall scss files
+@import "typography.scss";
+
+
+@import "typography.css";
+html {
+  font-size: 94.75%;
+
+  // nesting media queries
+  @media (min-width: 40rem) {
+      font-size: 125%;
+    }
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  align-items: center;
+
+  padding: $size-default * 3 0;
+  box-sizing: $sizing-method;
+
+  flex: {
+    direction: column;
+    wrap: nowrap;
+  }
+
+  @media (min-width: 40rem) { 
+      padding: $size-default * 3 0;
+    }
+}
+
+// inheritance - using same features for multiple selectors
+  // this will be a master class, we can use this for shared styles
+.sass-section {
+  border: $main-border;
+  background: lighten(#521751, 50%);
+  padding: $size-default;
+  text-align: center;
+  margin: $size-default * 2 0;
+  width: 90%;
+  box-sizing: $sizing-method;
+
+  @media (min-width: 40rem) {
+      width: 30rem;
+  }
+}
+
+
+// This class will inherit master class values
+.sass-introduction {
+  // we put the class from which this class will inherit
+  @extend .sass-section;
+  // more detailed modifications
+  box-shadow: $sizy-tiny 0.2rem 0.1rem #ccc;
+}
+
+// This class will inherit master class values
+.sass-details {
+  @extend .sass-section;
+  margin: $size-default * 2 0;
+}
+
+.section-header {
+  border-bottom: $main-border;
+
+  h1 {
+    margin: 0 0 $size-default 0;
+  }
+}
+
+// NESTING
+.documentation-links {
+  list-style: none;
+  margin: $size-default 0 0 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+
+  li {
+    margin: $sizy-tiny 0;
+    background: white;
+  }
+
+  .documentation-link {
+    text-decoration: none;
+    color: map-get($colors-map, main);
+    display: block;
+    padding: $sizy-tiny;
+    border: $main-border;
+  }
+
+  .documentation-link:hover,
+  .documentation-link:active {
+    color: white;
+    background: map-get($colors-map, secondary);
+    border-color:map-get($colors-map, secondary);
+  }
+}
+
+
+// improving media queries with scss
+  // those can be moved to parent elemnt for example html
+
+@media (min-width: 40rem) {
+  html {
+    font-size: 125%;
+  }
+
+  .container {
+    padding: $size-default * 3 0;
+  }
+
+  .sass-introduction,
+  .sass-details {
+    width: 30rem;
+  }
+}
